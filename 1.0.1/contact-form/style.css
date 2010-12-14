@@ -1,0 +1,19 @@
+#wp-contact-form input, #wp-contact-form textarea
+{
+	padding: 5px;
+	width: 95%;
+}
+#wp-contact-form label
+{
+	display: block;
+	font-weight: bold;
+}
+div#recaptcha_widget
+{
+	width: 210px;
+}
+div#recaptcha_widget #recaptcha_image img{
+height:46px;
+width:210px;
+float: left;
+}

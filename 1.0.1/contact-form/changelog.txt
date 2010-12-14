@@ -1,0 +1,8 @@
+Plugin Name: Contact Widget
+
+Change Log:
+----------------------------------------------------------------------
+
+1.1
+---
+- Added link to recaptcha to keep with license

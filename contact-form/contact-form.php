@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Contact Form
-Plugin URI: http://premium.wpmudev.org/
+Plugin URI: http://premium.wpmudev.org/project/contact-widget/
 Description: Adds a contact form widget to your blog.
 Author: AdamGold
-Author URI: http://themeforest.net/user/AdamGold/?ref=AdamGold
-Version: 1.0
+Author URI: http://premium.wpmudev.org/
+Version: 1.0.2
 WPD ID: 151
 
 Copyright 2009-2010 Incsub (http://incsub.com)
@@ -28,7 +28,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 function add_jquery_support() {
     wp_deregister_script( 'jquery' );
     wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js');
-}  
+}
 add_action('init', 'add_jquery_support');
 */
 
@@ -102,7 +102,7 @@ if( isset($_POST['contact_form_widget_title']) )
 		update_option($key , $_POST[ $key ]);
 	}
 }
-	
+
   }
 function widget($args){
       $data = array( 'contact_form_widget_title' => 'Contact Form', 'contact_form_subject_label' => 'Subject',
@@ -117,15 +117,15 @@ function widget($args){
     echo $args['before_title'] . $contact_form_widget_title . $args['after_title'];
 ?>
 <script type="text/javascript" src="<?php bloginfo('url'); ?>/wp-content/plugins/contact-form/scripts/js/global.js"></script>
-<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo('url'); ?>/wp-content/plugins/contact-form/style.css" /> 
-<?php 
+<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo('url'); ?>/wp-content/plugins/contact-form/style.css" />
+<?php
 if( get_option('contact_form_custom_css') )
 {
 	?>
 	<style type="text/css">
 	<?php echo get_option('contact_form_custom_css'); ?>
 	</style>
-	<?php 
+	<?php
 }
 ?>
 <div id="message"></div>
@@ -179,4 +179,12 @@ echo '<a href="http://www.google.com/recaptcha">reCAPTCHA</a>';
     register_widget_control('Contact Form', array('Contact_form', 'control'));
   }
 }
-?>
+
+if ( !function_exists( 'wdp_un_check' ) ) {
+  add_action( 'admin_notices', 'wdp_un_check', 5 );
+  add_action( 'network_admin_notices', 'wdp_un_check', 5 );
+  function wdp_un_check() {
+    if ( !class_exists( 'WPMUDEV_Update_Notifications' ) && current_user_can( 'edit_users' ) )
+      echo '<div class="error fade"><p>' . __('Please install the latest version of <a href="http://premium.wpmudev.org/project/update-notifications/" title="Download Now &raquo;">our free Update Notifications plugin</a> which helps you stay up-to-date with the most stable, secure versions of WPMU DEV themes and plugins. <a href="http://premium.wpmudev.org/wpmu-dev/update-notifications-plugin-information/">More information &raquo;</a>', 'wpmudev') . '</p></div>';
+  }
+}

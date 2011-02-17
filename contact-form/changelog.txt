@@ -3,6 +3,10 @@ Plugin Name: Contact Widget
 Change Log:
 ----------------------------------------------------------------------
 
-1.1
+1.0.2
+---
+- Add Update Notifications code
+
+1.0.1
 ---
 - Added link to recaptcha to keep with license

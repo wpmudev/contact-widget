@@ -3,6 +3,20 @@ Plugin Name: Contact Widget
 Change Log:
 ----------------------------------------------------------------------
 
+1.2.1
+--------
+- Fix showing up in Update Notifications
+
+1.2
+---
+- Added CAPTCHA refresh options
+- Added Compact display mode
+- Some markup fixes
+
+1.1
+---
+- Partial rewrite to better support various setups.
+
 1.0.2
 ---
 - Add Update Notifications code

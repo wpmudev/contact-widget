@@ -1,32 +1,71 @@
-jQuery.noConflict();
+(function ($) {
 
-function submit_form() {
-	var str = jQuery('#wp-contact-form').serialize();
+function cw_submit_form () {
+	var $me = jQuery(this);
+	var $form = $me.parents("form.wp-contact-form");
+	var str = $form.serialize();
 	jQuery.post(_cw_ajaxurl, {
 		"action": "cw_send_mail",
 		"data": str
-	}, function(msg){
-		jQuery("#message").ajaxComplete(function(event, request, settings){
-			result = msg;
-			if( result.search('Please') == 0 || result.search('Please') == -1 ) {
-				jQuery(':input','#wp-contact-form').not(':button, :submit, :reset, :hidden').val('');
-			}
-			jQuery('#message').html(result);
-			if (typeof Recaptcha != 'undefined') Recaptcha.reload();
-		});
-	});
+	}, function (data) {
+		var status = 0;
+		var msg = '';
+		try { status = parseInt(data.status, 10); } catch (e) { status = 0; }
+		try { msg = data.message; } catch (e) { msg = ''; }
+		if (status) {
+			jQuery(':input',$form).not(':button, :submit, :reset, :hidden').val('');
+			$form.trigger('cw-mail_sent');
+		}
+		$form.find('.cw-message').html(msg);
+		if (typeof Recaptcha != 'undefined') Recaptcha.reload();
+	}, 'json');
+	return false;
 }
 
-(function ($) {
+function cw_spawn_captcha () {
+	if (typeof Recaptcha == "undefined") return;
+
+	var $me = $(this);
+	var $new = $me.parents("form.wp-contact-form");
+	if (!$new.is(".cw-has_captcha")) return;
+
+	var $old = $("#cw-recaptcha_widget").parents("form.wp-contact-form");
+	if ($new.attr("id") == $old.attr("id")) return;
+
+	Recaptcha.destroy();
+	$new.append($("#cw-recaptcha_widget"));
+	if ($new.is(".cw-compact_form")) $("#cw_refresh").hide();
+	else  $("#cw_refresh a").text($new.find(".cw-refresh_link").val()).show();
+	Recaptcha.create(
+		'6LcHObsSAAAAAIfHD_wQ92EWdOV0JTcIN8tYxN07',
+		'cw-recaptcha_widget',
+		RecaptchaOptions
+	);
+	$("#recaptcha_image").attr("title", $new.find(".cw-refresh_message").val());
+}
+
+
 $(function () {
-	if (typeof Recaptcha != 'undefined') {
-		$("#recaptcha_image").attr("title", _cw_refresh_message).click(Recaptcha.reload);
-		if (_cw_compact) $("#cw_refresh").hide();
+
+if (typeof Recaptcha != "undefined") {
+	$("#recaptcha_image").click(Recaptcha.reload);
+}
+
+// Initialize forms
+$("form.wp-contact-form").each(function () {
+	var $form = $(this);
+	if (!$form.length) return true;
+
+	if ($form.find("#cw-recaptcha_widget").length) {
+		if ($form.is(".cw-compact_form")) $("#cw_refresh").hide();
+		else $("#cw_refresh a").text($form.find(".cw-refresh_link").val()).show();
+
+		$("#recaptcha_image").attr("title", $form.find(".cw-refresh_message").val());
 	}
-	
-	if (!_cw_compact) return false;
-	var $form = $("#wp-contact-form");
-	if (!$form.length) return false;
+	$form.find('input:button[name="submit"]').bind('click', cw_submit_form); // Bind submission
+	$form.find(":input").bind('focus', cw_spawn_captcha);
+
+	if (!$form.is(".cw-compact_form")) return true; // Compacting forms below
 
 	$form.find("label").each(function () {
 		var $me = $(this);
@@ -38,7 +77,8 @@ $(function () {
 			.addClass('cw_inactive')
 			.val($me.text())
 			.focus(function () {
-				$obj.val('').removeClass('cw_inactive');
+				if ($obj.val() == $me.text()) $obj.val('');
+				$obj.removeClass('cw_inactive');
 			})
 			.blur(function () {
 				if ($obj.val()) return true;
@@ -46,5 +86,8 @@ $(function () {
 			})
 		;
 	});
+});
+
+
 });
 })(jQuery);

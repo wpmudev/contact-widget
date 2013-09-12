@@ -3,6 +3,49 @@ Plugin Name: Contact Widget
 Change Log:
 ----------------------------------------------------------------------
 
+2.1.4, 2013-09-12
+--------
+- Improved filtering.
+- Javascript cleanup.
+
+2.1.3, 2012-10-03
+--------
+- Do not explicitly include pluggables.
+- Properly enqueueing scripts and styles, with optional fallback.
+
+2.1.2, 2012-07-06
+--------
+- Fix for error processing filter.
+
+2.1.1, 2012-07-05
+--------
+- Fix for unprotected forms.
+
+2.1, 2012-06-27
+--------
+- Added output modification filters for headers, subject and message.
+- Added appearance and behavior modifying hooks to allow custom changes.
+- Added ReCaptcha keys settings fields.
+
+2.0, 2012-05-03
+--------
+- Partial rewrite to discard deprecated API calls.
+- Allowing multiple widgets.
+- Fixed plugin conflict with pop up.
+
+1.3.1, 2011-12-04
+--------
+- Prepared the plugin for l10n.
+- Fixed double escaping issue.
+
+1.3
+--------
+- Added generic "From" options.
+
+1.2.2
+--------
+- Do not clear user-supplied text in compact mode.
+
 1.2.1
 --------
 - Fix showing up in Update Notifications

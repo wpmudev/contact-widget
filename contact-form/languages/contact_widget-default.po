@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contact Widget\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-12 16:11+0100\n"
-"PO-Revision-Date: 2013-09-12 16:11+0100\n"
+"POT-Creation-Date: 2013-10-28 14:50+0100\n"
+"PO-Revision-Date: 2013-10-28 14:50+0100\n"
 "Last-Translator: \n"
 "Language-Team: Incsub\n"
 "Language: en\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Mail not sent"
 msgstr ""
 
-#: contact-form.php:68 contact-form.php:69 contact-form.php:315
+#: contact-form.php:68 contact-form.php:69 contact-form.php:318
 msgid "Contact Form"
 msgstr ""
 
@@ -61,7 +61,7 @@ msgstr ""
 msgid "Use generic &quot;from&quot; address:"
 msgstr ""
 
-#: contact-form.php:134 contact-form.php:176 contact-form.php:207
+#: contact-form.php:134 contact-form.php:176 contact-form.php:210
 msgid "Enable"
 msgstr ""
 
@@ -114,63 +114,69 @@ msgid ""
 "boxes below."
 msgstr ""
 
-#: contact-form.php:186
-msgid "Public key"
+#: contact-form.php:187
+msgid ""
+"Please, remember that your submissions will <b>not</b> be protected until "
+"you set up the API keys."
 msgstr ""
 
 #: contact-form.php:189
+msgid "Public key"
+msgstr ""
+
+#: contact-form.php:192
 msgid "Private key"
 msgstr ""
 
-#: contact-form.php:195
+#: contact-form.php:198
 msgid "Refresh CAPTCHA link:"
 msgstr ""
 
-#: contact-form.php:199
+#: contact-form.php:202
 msgid "Refresh CAPTCHA message:"
 msgstr ""
 
-#: contact-form.php:202
+#: contact-form.php:205
 msgid "This is the message that will appear when user rolls over CAPTCHA image"
 msgstr ""
 
-#: contact-form.php:205
+#: contact-form.php:208
 msgid "Compact mode:"
 msgstr ""
 
-#: contact-form.php:226 contact-form.php:330
+#: contact-form.php:229 contact-form.php:333
 msgid "Click to refresh"
 msgstr ""
 
-#: contact-form.php:227 contact-form.php:331
+#: contact-form.php:230 contact-form.php:334
 msgid "Refresh"
 msgstr ""
 
-#: contact-form.php:297
+#: contact-form.php:300
 msgid "Incorrect please try again"
 msgstr ""
 
-#: contact-form.php:316
+#: contact-form.php:319
 msgid "Subject"
 msgstr ""
 
-#: contact-form.php:317
+#: contact-form.php:320
 msgid "From"
 msgstr ""
 
-#: contact-form.php:318
+#: contact-form.php:321
 msgid "Message"
 msgstr ""
 
-#: contact-form.php:319
+#: contact-form.php:322
 msgid "Send Message"
 msgstr ""
 
-#: contact-form.php:321
+#: contact-form.php:324
 msgid "Mail sent!"
 msgstr ""
 
-#: contact-form.php:345
+#: contact-form.php:348
 msgid ""
 "Please install the latest version of <a href=\"http://premium.wpmudev.org/"
 "project/update-notifications/\" title=\"Download Now &raquo;\">our free "

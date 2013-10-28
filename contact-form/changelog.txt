@@ -3,6 +3,11 @@ Plugin Name: Contact Widget
 Change Log:
 ----------------------------------------------------------------------
 
+2.1.5, 2013-10-28
+--------
+- Regardless of CAPTCHA settings, don't apply it unless we have API keys.
+- Adding the conditional API error message.
+
 2.1.4, 2013-09-12
 --------
 - Improved filtering.

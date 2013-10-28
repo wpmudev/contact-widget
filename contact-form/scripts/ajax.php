@@ -4,7 +4,7 @@ if (!function_exists('_recaptcha_qsencode')) require_once( rtrim(dirname(__FILE_
 header("Content-type: application/json");
 $_data = Contact_Form::get_instance_data(@$_POST['instance']);
 
-if ('on' == $_data['contact_form_captcha']) {
+if ('on' == $_data['contact_form_captcha'] && !empty($_data['contact_form_private_key'])) {
 	$privatekey = $_data['contact_form_private_key'];
 	$resp = recaptcha_check_answer(
 		$privatekey,
@@ -61,7 +61,7 @@ if ($email && !cw_validate_email($email)) {
 	$error .= '<p>' . __('Please enter a valid e-mail address.', 'contact_widget') . '</p>';
 }
 
-if ($_data['contact_form_captcha'] == 'on') {
+if ($_data['contact_form_captcha'] == 'on' && !empty($_data['contact_form_private_key'])) {
 	if (!$resp->is_valid) {
 		$error .= '<p>' . __('Please enter a valid captcha.', 'contact_widget') . '</p>';
 	}

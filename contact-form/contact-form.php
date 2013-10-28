@@ -6,7 +6,7 @@ Description: Adds a contact form widget to your blog.
 Text Domain: contact_widget
 Author: AdamGold
 Author URI: http://premium.wpmudev.org/
-Version: 2.1.4
+Version: 2.1.5
 WDP ID: 151
 
 Copyright 2009-2011 Incsub (http://incsub.com)
@@ -183,6 +183,9 @@ class Contact_form extends WP_Widget {
 				<br />
 				<?php _e('After that, paste your new <b>Private</b> and <b>Public</b> keys in the boxes below.', 'contact_widget'); ?>
 				<br />
+				<?php if (!empty($captcha) && (empty($contact_form_public_key) || empty($contact_form_private_key))) { ?>
+					<div class="error below-h2"><?php _e('Please, remember that your submissions will <b>not</b> be protected until you set up the API keys.', 'contact_widget'); ?></div>
+				<?php } ?>
 				<?php _e('Public key', 'contact_widget'); ?>
 				<input class="widefat" type="text" name="<?php echo $this->get_field_name('contact_form_public_key'); ?>" value="<?php echo esc_attr($contact_form_public_key); ?>" />
 				<br />
@@ -278,7 +281,7 @@ class Contact_form extends WP_Widget {
 				<?php do_action('contact_form-after_message', $cw_uniqid); ?>
 
 				<?php
-				if ($contact_form_captcha && !defined('CW_RECAPTCHA_DONE')) {
+				if ($contact_form_captcha && !empty($contact_form_public_key) && !empty($contact_form_private_key) && !defined('CW_RECAPTCHA_DONE')) {
 					if (!function_exists('_recaptcha_qsencode')) require_once( $plugin_dir . 'scripts/recaptchalib.php' );
 					$publickey = $contact_form_public_key;
 					$privatekey = $contact_form_private_key;

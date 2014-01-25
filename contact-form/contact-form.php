@@ -4,13 +4,14 @@ Plugin Name: Contact Form
 Plugin URI: http://premium.wpmudev.org/project/contact-widget
 Description: Adds a contact form widget to your blog.
 Text Domain: contact_widget
-Author: AdamGold
+Author: WPMU DEV
 Author URI: http://premium.wpmudev.org/
 Version: 2.1.5
 WDP ID: 151
 
 Copyright 2009-2011 Incsub (http://incsub.com)
-
+Author - AdamGold
+Contributor - Ve Bailovity (Incsub)
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by
 the Free Software Foundation.

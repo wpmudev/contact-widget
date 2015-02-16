@@ -315,6 +315,7 @@ class Contact_form extends WP_Widget {
 							<a href="javascript:Recaptcha.reload()"><span><?php echo wp_kses_post( $contact_form_refresh_link ); ?></span></a>
 						</div>
 						<div class="recaptcha_only_if_incorrect_sol" style="color: red;"><?php _e( 'Incorrect please try again', 'contact_widget' ); ?></div>
+						<br/>
 						<label><?php echo $contact_form_response_field; ?>
 							<input id="recaptcha_response_field" name="recaptcha_response_field" type="text">
 						</label>

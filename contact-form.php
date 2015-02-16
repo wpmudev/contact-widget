@@ -6,7 +6,7 @@ Description: Adds a contact form widget to your blog.
 Text Domain: contact_widget
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org/
-Version: 2.1.5
+Version: 2.1.6
 WDP ID: 151
 
 Copyright 2009-2011 Incsub (http://incsub.com)
@@ -183,8 +183,8 @@ class Contact_form extends WP_Widget {
 			<span class="cw_captcha_keys" style="display:none">
 				<br/>
 				<?php printf(
-					__( 'To start using ReCaptcha protection, you will first need to <a href="%s">generate a set of API keys here</a>.', 'contact_widget' ),
-					'https://www.google.com/recaptcha/admin/create'
+					__( 'To start using ReCaptcha protection, you will first need to <a href="%s" target="_blank">generate a set of API keys here</a>.', 'contact_widget' ),
+					'https://www.google.com/recaptcha/admin#list'
 				); ?>
 				<br/>
 				<?php _e( 'After that, paste your new <b>Private</b> and <b>Public</b> keys in the boxes below.', 'contact_widget' ); ?>

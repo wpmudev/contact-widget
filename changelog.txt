@@ -4,7 +4,9 @@ Change Log:
 ----------------------------------------------------------------------
 2.1.6 - 2015-02-16 - Umesh Kumar
 --------
-
+- Fixed: API Key registration Link
+- Fixed: Enqueue script warning
+- Update: Recaptcha PHP Lib
 
 2.1.5, 2013-10-28
 --------

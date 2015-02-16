@@ -1,23 +1,25 @@
-#wp-contact-form input, #wp-contact-form textarea
-{
-	padding: 5px;
-	width: 95%;
+#wp-contact-form input, #wp-contact-form textarea {
+    padding: 5px;
+    width: 95%;
 }
-#wp-contact-form label
-{
-	display: block;
-	font-weight: bold;
+
+#wp-contact-form label {
+    display: block;
+    font-weight: bold;
 }
-div#cw-recaptcha_widget
-{
-	width: 210px;
+
+div#cw-recaptcha_widget {
+    margin: 10px 0;
+    width: 210px;
 }
+
 div#cw-recaptcha_widget #recaptcha_image img {
-height:46px;
-width:210px;
-float: left;
+    cursor: pointer;
+    height: 46px;
+    width: 210px;
+    float: left;
 }
 
 .cw_inactive {
-	color: #ccc;
+    color: #ccc;
 }

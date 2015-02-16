@@ -26,9 +26,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-
+define ( 'WC_PLUGIN_SELF_DIRNAME', basename( dirname( __FILE__ ) ), true );
+if( !defined('WC_PLUGIN_BASE_DIR') ) {
+	define ( 'WC_PLUGIN_BASE_DIR', WP_PLUGIN_DIR . '/' . WC_PLUGIN_SELF_DIRNAME, true );
+}
 //require( ABSPATH . 'wp-includes/pluggable.php'); // Do *not* require pluggable.php - this should already be there.
-wp_enqueue_script( "jquery" );
 
 
 if ( is_multisite() && defined( 'WPMU_PLUGIN_URL' ) && defined( 'WPMU_PLUGIN_DIR' ) && file_exists( WPMU_PLUGIN_DIR . '/' . basename( __FILE__ ) ) ) {
@@ -211,6 +213,10 @@ class Contact_form extends WP_Widget {
 			<small><?php _e( 'This is the message that will appear when user rolls over CAPTCHA image', 'contact_widget' ); ?></small>
 		</p>
 		<p>
+			<?php _e( 'User instruction text:', 'contact_widget' ); ?>
+			<input type="text" class="widefat" name="<?php echo $this->get_field_name( 'contact_form_response_field' ); ?>" value="<?php echo esc_attr( $contact_form_response_field ); ?>"/>
+		</p>
+		<p>
 			<?php _e( 'Compact mode:', 'contact_widget' ); ?>
 			<input type="hidden" name="<?php echo $this->get_field_name( 'contact_form_compact' ); ?>" value="0"/>
 			<input type="checkbox" name="<?php echo $this->get_field_name( 'contact_form_compact' ); ?>" <?php echo $compact_mode; ?> /> <?php _e( 'Enable', 'contact_widget' ); ?>
@@ -232,9 +238,10 @@ class Contact_form extends WP_Widget {
 		$cw_uniqid = md5( serialize( $data ) . uniqid() );
 		extract( $data );
 
-		$contact_form_refresh_message = $contact_form_refresh_message ? $contact_form_refresh_message : __( 'Click to refresh', 'contact_widget' );
-		$contact_form_refresh_link    = $contact_form_refresh_link ? $contact_form_refresh_link : __( 'Refresh', 'contact_widget' );
-		$contact_form_submit_label    = $contact_form_submit_label ? $contact_form_submit_label : $data['contact_form_submit_label'];
+		$contact_form_refresh_message = ! empty( $contact_form_refresh_message ) ? $contact_form_refresh_message : __( 'Click to refresh', 'contact_widget' );
+		$contact_form_refresh_link    = ! empty( $contact_form_refresh_link ) ? $contact_form_refresh_link : __( 'Reload Captcha', 'contact_widget' );
+		$contact_form_submit_label    = ! empty( $contact_form_submit_label ) ? $contact_form_submit_label : $data['contact_form_submit_label'];
+		$contact_form_response_field  = ! empty( $contact_form_response_field ) ? $contact_form_response_field : __( 'Enter the characters you see in image', 'contact_widget' );
 		$contact_form_compact         = ( 'on' == $contact_form_compact ) ? 1 : 0;
 		$contact_form_captcha         = ( 'on' == $contact_form_captcha ) ? 1 : 0;
 
@@ -263,13 +270,13 @@ class Contact_form extends WP_Widget {
 			</style>
 		<?php } ?>
 		<div id="form-fields">
-			<form class="wp-contact-form <?php echo( $contact_form_compact ? 'cw-compact_form' : '' ); ?> <?php echo( $contact_form_captcha ? 'cw-has_captcha' : '' ); ?>" id="cw-form-<?php echo $cw_uniqid;?>">
+			<form class="wp-contact-form <?php echo( $contact_form_compact ? 'cw-compact_form' : '' ); ?> <?php echo( $contact_form_captcha ? 'cw-has_captcha' : '' ); ?>" id="cw-form-<?php echo $cw_uniqid; ?>">
 				<?php do_action( 'contact_form-form_start', $cw_uniqid ); ?>
 				<div class="cw-message">
 					<?php do_action( 'contact_form-form_message', $cw_uniqid ); ?>
 				</div>
-				<input type="hidden" class="cw-refresh_message" value="<?php esc_attr_e( $contact_form_refresh_message );?>"/>
-				<input type="hidden" class="cw-refresh_link" value="<?php esc_attr_e( $contact_form_refresh_link );?>"/>
+				<input type="hidden" class="cw-refresh_message" value="<?php esc_attr_e( $contact_form_refresh_message ); ?>"/>
+				<input type="hidden" class="cw-refresh_link" value="<?php esc_attr_e( $contact_form_refresh_link ); ?>"/>
 				<input type="hidden" name="instance" value="<?php esc_attr_e( $this->number ); ?>"/>
 
 				<?php do_action( 'contact_form-fields_start', $cw_uniqid ); ?>
@@ -308,12 +315,14 @@ class Contact_form extends WP_Widget {
 							<a href="javascript:Recaptcha.reload()"><span><?php echo wp_kses_post( $contact_form_refresh_link ); ?></span></a>
 						</div>
 						<div class="recaptcha_only_if_incorrect_sol" style="color: red;"><?php _e( 'Incorrect please try again', 'contact_widget' ); ?></div>
-						<input id="recaptcha_response_field" name="recaptcha_response_field" type="text">
+						<label><?php echo $contact_form_response_field; ?>
+							<input id="recaptcha_response_field" name="recaptcha_response_field" type="text">
+						</label>
 						<script type="text/javascript" src="http://api.recaptcha.net/challenge?k=<?php echo $publickey; ?>&lang=en"></script>
 					</div>
 				<?php } ?>
 				<label>&nbsp;</label>
-				<input class="button" type="button" name="submit" value="<?php echo wp_kses_post( $contact_form_submit_label );?>">
+				<input class="button" type="button" name="submit" value="<?php echo wp_kses_post( $contact_form_submit_label ); ?>">
 			</form>
 		</div>
 		<?php
@@ -341,7 +350,7 @@ class Contact_form extends WP_Widget {
 				'contact_form_captcha'               => 'on',
 				'contact_form_compact'               => '',
 				'contact_form_refresh_message'       => __( 'Click to refresh', 'contact_widget' ),
-				'contact_form_refresh_link'          => __( 'Refresh', 'contact_widget' ),
+				'contact_form_refresh_link'          => __( 'Reload Captcha', 'contact_widget' ),
 				'contact_form_public_key'            => '',
 				'contact_form_private_key'           => '',
 			)
@@ -349,13 +358,15 @@ class Contact_form extends WP_Widget {
 	}
 
 } // End class
-
-if ( ! function_exists( 'wdp_un_check' ) ) {
-	add_action( 'admin_notices', 'wdp_un_check', 5 );
-	add_action( 'network_admin_notices', 'wdp_un_check', 5 );
-	function wdp_un_check() {
-		if ( ! class_exists( 'WPMUDEV_Update_Notifications' ) && current_user_can( 'edit_users' ) ) {
-			echo '<div class="error fade"><p>' . __( 'Please install the latest version of <a href="http://premium.wpmudev.org/project/update-notifications/" title="Download Now &raquo;">our free Update Notifications plugin</a> which helps you stay up-to-date with the most stable, secure versions of WPMU DEV themes and plugins. <a href="http://premium.wpmudev.org/wpmu-dev/update-notifications-plugin-information/">More information &raquo;</a>', 'wpmudev' ) . '</p></div>';
-		}
+if ( is_admin() && file_exists( WC_PLUGIN_BASE_DIR . '/dash-notice/wpmudev-dash-notification.php' ) ) {
+	// Dashboard notification
+	global $wpmudev_notices;
+	if ( ! is_array( $wpmudev_notices ) ) {
+		$wpmudev_notices = array();
 	}
+	$wpmudev_notices[] = array(
+		'id'      => 151,
+		'name'    => 'Contact Form'
+	);
+	require_once WC_PLUGIN_BASE_DIR . '/dash-notice/wpmudev-dash-notification.php';
 }

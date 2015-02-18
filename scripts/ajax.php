@@ -7,11 +7,8 @@ header( "Content-type: application/json" );
 $_data = Contact_Form::get_instance_data( @$_POST['instance'] );
 
 if ( 'on' == $_data['contact_form_captcha'] && ! empty( $_data['contact_form_private_key'] ) ) {
-	$privatekey = $_data['contact_form_private_key'];
-	$resp       = recaptcha_check_answer(
-		$privatekey,
+	$resp       = verifyResponse(
 		$_SERVER["REMOTE_ADDR"],
-		$_POST["recaptcha_challenge_field"],
 		$_POST["recaptcha_response_field"]
 	);
 }

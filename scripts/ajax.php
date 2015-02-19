@@ -6,11 +6,34 @@ if ( ! function_exists( '_recaptcha_qsencode' ) ) {
 header( "Content-type: application/json" );
 $_data = Contact_Form::get_instance_data( @$_POST['instance'] );
 
-if ( 'on' == $_data['contact_form_captcha'] && ! empty( $_data['contact_form_private_key'] ) ) {
-	$resp       = verifyResponse(
-		$_SERVER["REMOTE_ADDR"],
-		$_POST["recaptcha_response_field"]
-	);
+if ( 'on' == $_data['contact_form_captcha'] ) {
+	$secret = get_option( 'wpmu_contact_form_private_key' );
+	if ( empty( $secret ) ) {
+		//Send error
+		wp_send_json_error();
+	}
+	//Check version of recaptcha being used
+	$version = get_option( 'wpmu_contact_form_recaptcha_version', 'old' );
+	$reCaptcha = new ReCaptcha( $secret );
+	if ( $version == 'old' ) {
+		$resp = $reCaptcha->check_answer(
+			$secret,
+			$_SERVER["REMOTE_ADDR"],
+			$_POST["recaptcha_challenge_field"],
+			$_POST["recaptcha_response_field"]
+		);
+	}else {
+		$resp      = $reCaptcha->verifyResponse(
+			$_SERVER["REMOTE_ADDR"],
+			$_POST["recaptcha_response_field"]
+		);
+	}
+	echo "<pre>";
+	print_r( $resp );
+	echo "</pre>";
+	if ( $resp != null && $resp->success ) {
+		wp_send_json_success();
+	}
 }
 
 $post = ( ! empty( $_POST ) ) ? true : false;

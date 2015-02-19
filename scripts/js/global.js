@@ -25,7 +25,11 @@
 				$form.trigger('cw-mail_sent');
 			}
 			$form.find('.cw-message').html(msg);
-			if (typeof Recaptcha != 'undefined') Recaptcha.reload();
+			if (typeof Recaptcha != 'undefined') {
+				Recaptcha.reload();
+			} else if ( typeof grecaptcha != 'undefined' ) {
+				grecaptcha.reset();
+			}
 		}, 'json');
 		return false;
 	}

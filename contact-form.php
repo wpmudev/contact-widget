@@ -204,17 +204,17 @@ class Contact_form extends WP_Widget {
 				<b><?php _e( 'ReCaptcha Version:', 'contact_widget' ); ?></b>
 				<br/>
 				<label>
-					<input type="radio" class="widefat old-recaptcha recaptcha-version" name="<?php echo $this->get_field_name( 'contact_form_recaptcha_version' ); ?>" value="old" <?php checked('old', $contact_form_recaptcha_version, true ); ?> />
+					<input type="radio" class="widefat old-recaptcha recaptcha-version" name="<?php echo $this->get_field_name( 'contact_form_recaptcha_version' ); ?>" value="old" <?php checked( 'old', $contact_form_recaptcha_version, true ); ?> />
 					<?php _e( 'Old', 'contact_widget' ); ?>
 				</label>
 				<br/>
 				<label>
-					<input type="radio" class="widefat new-recaptcha recaptcha-version" name="<?php echo $this->get_field_name( 'contact_form_recaptcha_version' ); ?>" value="new" <?php checked('new', $contact_form_recaptcha_version, true ); ?> />
+					<input type="radio" class="widefat new-recaptcha recaptcha-version" name="<?php echo $this->get_field_name( 'contact_form_recaptcha_version' ); ?>" value="new" <?php checked( 'new', $contact_form_recaptcha_version, true ); ?> />
 					<?php _e( 'New', 'contact_widget' ); ?>
 				</label>
 			</p>
 		</div>
-		<div class="old-recaptcha-settings<?php echo $contact_form_recaptcha_version !='old' ? ' hidden': ''; ?>">
+		<div class="old-recaptcha-settings<?php echo $contact_form_recaptcha_version != 'old' ? ' hidden' : ''; ?>">
 			<p>
 				<b><?php _e( 'Refresh CAPTCHA link:', 'contact_widget' ); ?></b>
 				<input type="text" class="widefat" name="<?php echo $this->get_field_name( 'contact_form_refresh_link' ); ?>" value="<?php echo esc_attr( $contact_form_refresh_link ); ?>"/>
@@ -231,17 +231,17 @@ class Contact_form extends WP_Widget {
 				<input type="text" class="widefat" name="<?php echo $this->get_field_name( 'contact_form_response_field' ); ?>" value="<?php echo esc_attr( $contact_form_response_field ); ?>"/>
 			</p>
 		</div>
-		<div class="new-recaptcha-settings<?php echo $contact_form_recaptcha_version !='new' ? ' hidden': ''; ?>">
+		<div class="new-recaptcha-settings<?php echo $contact_form_recaptcha_version != 'new' ? ' hidden' : ''; ?>">
 			<p>
 				<b><?php _e( 'Recaptcha Theme:', 'contact_widget' ); ?></b>
 				<br/>
 				<label>
-					<input type="radio" class="widefat" name="<?php echo $this->get_field_name( 'contact_form_recaptcha_theme' ); ?>" value="light" <?php checked('light', $contact_form_recaptcha_theme, true ); ?>/>
+					<input type="radio" class="widefat" name="<?php echo $this->get_field_name( 'contact_form_recaptcha_theme' ); ?>" value="light" <?php checked( 'light', $contact_form_recaptcha_theme, true ); ?>/>
 					<?php _e( 'Light', 'contact_widget' ); ?>
 				</label>
 				<br/>
 				<label>
-					<input type="radio" class="widefat" name="<?php echo $this->get_field_name( 'contact_form_recaptcha_theme' ); ?>" value="dark" <?php checked('dark', $contact_form_recaptcha_theme, true ); ?>/>
+					<input type="radio" class="widefat" name="<?php echo $this->get_field_name( 'contact_form_recaptcha_theme' ); ?>" value="dark" <?php checked( 'dark', $contact_form_recaptcha_theme, true ); ?>/>
 					<?php _e( 'Dark', 'contact_widget' ); ?>
 				</label>
 			</p>
@@ -250,12 +250,12 @@ class Contact_form extends WP_Widget {
 				<b><?php _e( 'Recaptcha Type:', 'contact_widget' ); ?></b>
 				<br/>
 				<label>
-					<input type="radio" class="widefat" name="<?php echo $this->get_field_name( 'contact_form_recaptcha_type' ); ?>" value="image" <?php checked('image', $contact_form_recaptcha_type, true ); ?>/>
+					<input type="radio" class="widefat" name="<?php echo $this->get_field_name( 'contact_form_recaptcha_type' ); ?>" value="image" <?php checked( 'image', $contact_form_recaptcha_type, true ); ?>/>
 					<?php _e( 'Image', 'contact_widget' ); ?>
 				</label>
 				<br/>
 				<label>
-					<input type="radio" class="widefat" name="<?php echo $this->get_field_name( 'contact_form_recaptcha_type' ); ?>" value="audio" <?php checked('audio', $contact_form_recaptcha_type, true ); ?>/>
+					<input type="radio" class="widefat" name="<?php echo $this->get_field_name( 'contact_form_recaptcha_type' ); ?>" value="audio" <?php checked( 'audio', $contact_form_recaptcha_type, true ); ?>/>
 					<?php _e( 'Audio', 'contact_widget' ); ?>
 				</label>
 			</p>
@@ -279,9 +279,9 @@ class Contact_form extends WP_Widget {
 		$instance = array();
 		foreach ( $new_instance as $key => $value ) {
 			$instance[ $key ] = in_array( $key, $this->_kses ) ? wp_kses_post( $value ) : strip_tags( $value );
-			if( $key == 'contact_form_private_key' ) {
+			if ( $key == 'contact_form_private_key' ) {
 				update_option( 'wpmu_contact_form_private_key', $value );
-			}elseif( $key == 'contact_form_recaptcha_version' ) {
+			} elseif ( $key == 'contact_form_recaptcha_version' ) {
 				update_option( 'wpmu_contact_form_recaptcha_version', $value );
 			}
 		}
@@ -358,16 +358,20 @@ class Contact_form extends WP_Widget {
 
 				<?php do_action( 'contact_form-fields_start', $cw_uniqid ); ?>
 
-				<label for="cw_subject-<?php echo $cw_uniqid; ?>"><?php echo wp_kses_post( $contact_form_subject_label ); ?></label>
-				<input class="text" type="text" name="subject" id="cw_subject-<?php echo $cw_uniqid; ?>" value=""><br/>
+				<label for="cw_subject-<?php echo $cw_uniqid; ?>"><?php echo wp_kses_post( $contact_form_subject_label ); ?>
+					<input class="text" type="text" name="subject" id="cw_subject-<?php echo $cw_uniqid; ?>" value="">
+				</label><br/>
 				<?php do_action( 'contact_form-after_subject', $cw_uniqid ); ?>
 
-				<label for="cw_email-<?php echo $cw_uniqid; ?>"><?php echo wp_kses_post( $contact_form_from_label ); ?></label>
-				<input class="text" type="text" name="email" id="cw_email-<?php echo $cw_uniqid; ?>" value=""><br/>
+				<label for="cw_email-<?php echo $cw_uniqid; ?>"><?php echo wp_kses_post( $contact_form_from_label ); ?>
+					<input class="text" type="text" name="email" id="cw_email-<?php echo $cw_uniqid; ?>" value="">
+				</label>
+				<br/>
 				<?php do_action( 'contact_form-after_email', $cw_uniqid ); ?>
 
-				<label for="cw_message-<?php echo $cw_uniqid; ?>"><?php echo wp_kses_post( $contact_form_message_label ); ?></label>
-				<textarea name="message" id="cw_message-<?php echo $cw_uniqid; ?>" rows="5" cols="25"></textarea><br/>
+				<label for="cw_message-<?php echo $cw_uniqid; ?>"><?php echo wp_kses_post( $contact_form_message_label ); ?>
+					<textarea name="message" id="cw_message-<?php echo $cw_uniqid; ?>" rows="5" cols="25"></textarea>
+				</label><br/>
 				<?php do_action( 'contact_form-after_message', $cw_uniqid ); ?>
 
 				<?php
@@ -375,7 +379,7 @@ class Contact_form extends WP_Widget {
 					if ( ! function_exists( '_recaptcha_qsencode' ) ) {
 						require_once( $plugin_dir . 'scripts/recaptchalib.php' );
 					}
-					$publickey     = $contact_form_public_key;
+					$publickey = $contact_form_public_key;
 					define( 'CW_RECAPTCHA_DONE', true );
 					?>
 					<br/><?php
@@ -399,7 +403,7 @@ class Contact_form extends WP_Widget {
 
 						<div class="recaptcha_only_if_incorrect_sol" style="color: red;"><?php _e( 'Incorrect please try again', 'contact_widget' ); ?></div>
 						<label><?php echo $contact_form_response_field; ?>
-							<br />
+							<br/>
 							<input id="recaptcha_response_field" name="recaptcha_response_field" type="text">
 						</label>
 						<script type="text/javascript" src="http://api.recaptcha.net/challenge?k=<?php echo $publickey; ?>&lang=en"></script>

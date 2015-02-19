@@ -23,6 +23,12 @@ div#cw-recaptcha_widget #recaptcha_image img {
 .cw_inactive {
     color: #ccc;
 }
+
 .g-recaptcha {
     max-width: 100%;
+}
+
+.cw-message {
+    font-size: medium;
+    font-weight: 500;
 }

@@ -7,13 +7,14 @@ header( "Content-type: application/json" );
 $_data = Contact_Form::get_instance_data( @$_POST['instance'] );
 
 if ( 'on' == $_data['contact_form_captcha'] ) {
+	$resp   = null;
 	$secret = get_option( 'wpmu_contact_form_private_key' );
 	if ( empty( $secret ) ) {
 		//Send error
 		wp_send_json_error();
 	}
 	//Check version of recaptcha being used
-	$version = get_option( 'wpmu_contact_form_recaptcha_version', 'old' );
+	$version   = get_option( 'wpmu_contact_form_recaptcha_version', 'old' );
 	$reCaptcha = new ReCaptcha( $secret );
 	if ( $version == 'old' ) {
 		$resp = $reCaptcha->check_answer(
@@ -22,22 +23,46 @@ if ( 'on' == $_data['contact_form_captcha'] ) {
 			$_POST["recaptcha_challenge_field"],
 			$_POST["recaptcha_response_field"]
 		);
-	}else {
-		$resp      = $reCaptcha->verifyResponse(
+	} else {
+		$response = ! empty( $_POST["g-recaptcha-response"] ) ? $_POST["g-recaptcha-response"] : '';
+		$resp     = $reCaptcha->verifyResponse(
 			$_SERVER["REMOTE_ADDR"],
-			$_POST["recaptcha_response_field"]
+			$response
 		);
 	}
-	echo "<pre>";
-	print_r( $resp );
-	echo "</pre>";
-	if ( $resp != null && $resp->success ) {
-		wp_send_json_success();
+	if ( $resp->success ) {
+		$resp->is_valid = 1;
 	}
 }
 
-$post = ( ! empty( $_POST ) ) ? true : false;
+if ( empty( $_POST ) ) {
+	return;
+}
+$email   = ! empty( $_POST['email'] ) ? $_POST['email'] : '';
+$subject = ! empty( $_POST['subject'] ) ? cw_validate_subject( stripslashes( $_POST['subject'] ) ) : '';
+$message = ! empty( $_POST['message'] ) ? stripslashes( $_POST['message'] ) : '';
 
+$error = '';
+
+if ( ! $subject ) {
+	$error .= '<p>' . __( 'Please enter a subject.', 'contact_widget' ) . '</p>';
+}
+
+if ( ! $email ) {
+	$error .= '<p>' . __( 'Please enter an e-mail address.', 'contact_widget' ) . '</p>';
+}
+
+if ( $email && ! cw_validate_email( $email ) ) {
+	$error .= '<p>' . __( 'Please enter a valid e-mail address.', 'contact_widget' ) . '</p>';
+}
+
+/**
+ * Validate email address
+ *
+ * @param $email
+ *
+ * @return bool|mixed
+ */
 function cw_validate_email( $email ) {
 
 	if ( function_exists( 'filter_var' ) && defined( 'FILTER_VALIDATE_EMAIL' ) ) {
@@ -63,35 +88,21 @@ function cw_validate_subject( $subject ) {
 	return str_ireplace( array( "\r", "\n", "%0a", "%0d" ), '', stripslashes( $subject ) );
 }
 
-if ( ! $post ) {
-	exit();
-}
-
-$email   = $_POST['email'];
-$subject = cw_validate_subject( stripslashes( $_POST['subject'] ) );
-$message = stripslashes( $_POST['message'] );
-
-$error = '';
-
-if ( ! $subject ) {
-	$error .= '<p>' . __( 'Please enter a subject.', 'contact_widget' ) . '</p>';
-}
-
-if ( ! $email ) {
-	$error .= '<p>' . __( 'Please enter an e-mail address.', 'contact_widget' ) . '</p>';
-}
-
-if ( $email && ! cw_validate_email( $email ) ) {
-	$error .= '<p>' . __( 'Please enter a valid e-mail address.', 'contact_widget' ) . '</p>';
-}
-
-if ( $_data['contact_form_captcha'] == 'on' && ! empty( $_data['contact_form_private_key'] ) ) {
+if ( $_data['contact_form_captcha'] == 'on' ) {
 	if ( ! $resp->is_valid ) {
 		$error .= '<p>' . __( 'Please enter a valid captcha.', 'contact_widget' ) . '</p>';
 	}
 }
 
 $error = apply_filters( 'contact_form-validate_fields', $error, $_data );
+
+//If any errors, return
+if ( $error ) {
+	echo json_encode( array(
+		"status"  => 0,
+		"message" => $error
+	) );
+}
 
 if ( ! $error ) {
 	$custom_email = trim( $_data['contact_form_admin_email'] );
@@ -133,11 +144,6 @@ if ( ! $error ) {
 			"message" => '<p>' . __( 'Mail not sent', 'contact_widget' ) . '</p>'
 		) );
 	}
-} else {
-	echo json_encode( array(
-		"status"  => 0,
-		"message" => $error
-	) );
 }
 
 ?>

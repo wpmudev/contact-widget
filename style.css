@@ -13,6 +13,10 @@ div#cw-recaptcha_widget {
     width: 210px;
 }
 
+div#recaptcha_image {
+    max-width: 90%;
+}
+
 div#cw-recaptcha_widget #recaptcha_image img {
     cursor: pointer;
     height: 46px;

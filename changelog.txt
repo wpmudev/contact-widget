@@ -2,11 +2,16 @@ Plugin Name: Contact Widget
 
 Change Log:
 ----------------------------------------------------------------------
-2.2 - 2015-02-16 - Umesh Kumar
+2.2 - 2015-02-20 - Umesh Kumar
 --------
+
+Important - After updating plugin, please save widget settings once
+
 - Fixed: API Key registration Link
 - Fixed: Enqueue script warning
-- Update: Recaptcha PHP Lib
+- Fixed: Old Recaptcha image styling
+- Fixed: Do not submit private key through form
+- New:   Choose from new or Old ReCaptcha lib
 
 2.1.5, 2013-10-28
 --------

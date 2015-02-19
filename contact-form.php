@@ -381,8 +381,7 @@ class Contact_form extends WP_Widget {
 					}
 					$publickey = $contact_form_public_key;
 					define( 'CW_RECAPTCHA_DONE', true );
-					?>
-					<br/><?php
+					?><?php
 				//Use old recaptcha
 				if ($contact_form_recaptcha_version == 'old') { ?>
 					<!--					Old Recaptcha-->
@@ -393,7 +392,6 @@ class Contact_form extends WP_Widget {
 							custom_theme_widget: 'cw-recaptcha_widget'
 						};
 					</script>
-				<br/>
 					<div id="cw-recaptcha_widget" style="display: none;">
 						<div id="recaptcha_image"></div>
 						<div id="cw_refresh">
@@ -410,12 +408,12 @@ class Contact_form extends WP_Widget {
 					</div>
 				<br/><?php
 				}else{ ?>
+					<br />
 					<div id="html_element"></div>
 				<br/>
 					<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script><?php
 				} ?>
 				<?php } ?>
-				<label>&nbsp;</label>
 				<input class="button" type="button" name="submit" value="<?php echo wp_kses_post( $contact_form_submit_label ); ?>">
 			</form>
 		</div>

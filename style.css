@@ -36,3 +36,13 @@ div#cw-recaptcha_widget #recaptcha_image img {
     font-size: medium;
     font-weight: 500;
 }
+
+.widget.Contact_form {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#form-fields label {
+    max-width: 90%;
+    display: inline-block;
+}

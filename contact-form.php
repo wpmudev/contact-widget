@@ -309,14 +309,31 @@ class Contact_form extends WP_Widget {
 
 		$contact_form_compact = ( 'on' == $contact_form_compact ) ? 1 : 0;
 		$contact_form_captcha = ( 'on' == $contact_form_captcha ) ? 1 : 0;
+		$publickey            = $contact_form_public_key;
+		//Reduce number of rows for textare in 2013
+		$theme = wp_get_theme();
+		$rows  = 5;
+		$cols  = 25;
+		if ( trim( $theme ) == 'Twenty Thirteen' ) {
+			$rows = 2;
+			$cols = 20;
+		}
 		if ( $contact_form_recaptcha_version == 'new' ) { ?>
 
 			<script type="text/javascript">
 				var onloadCallback = function () {
-					grecaptcha.render('html_element', {
+					grecaptcha.render('wpmu_grecaptcha', {
 						"sitekey": "<?php echo $contact_form_public_key; ?>",
 						"theme": "<?php echo $contact_form_recaptcha_theme; ?>",
-						"type": "<?php echo $contact_form_recaptcha_type; ?>"
+						"type": "<?php echo $contact_form_recaptcha_type; ?>",
+						"callback": function () {
+							var iframe_id = jQuery('#wpmu_grecaptcha iframe').attr('id');
+							var cssLink = document.createElement("link")
+							cssLink.href = "style.css";
+							cssLink.rel = "stylesheet";
+							cssLink.type = "text/css";
+							frames[iframe_id].document.body.appendChild(cssLink);
+						}
 					});
 				}
 			</script><?php
@@ -358,20 +375,19 @@ class Contact_form extends WP_Widget {
 
 				<?php do_action( 'contact_form-fields_start', $cw_uniqid ); ?>
 
-				<label for="cw_subject-<?php echo $cw_uniqid; ?>"><?php echo wp_kses_post( $contact_form_subject_label ); ?>
-					<input class="text" type="text" name="subject" id="cw_subject-<?php echo $cw_uniqid; ?>" value="">
-				</label><br/>
+				<label for="cw_subject-<?php echo $cw_uniqid; ?>"><?php echo wp_kses_post( $contact_form_subject_label ); ?></label>
+				<input class="text" type="text" name="subject" id="cw_subject-<?php echo $cw_uniqid; ?>" value=""><br/>
 				<?php do_action( 'contact_form-after_subject', $cw_uniqid ); ?>
 
-				<label for="cw_email-<?php echo $cw_uniqid; ?>"><?php echo wp_kses_post( $contact_form_from_label ); ?>
-					<input class="text" type="text" name="email" id="cw_email-<?php echo $cw_uniqid; ?>" value="">
-				</label>
+				<label for="cw_email-<?php echo $cw_uniqid; ?>"><?php echo wp_kses_post( $contact_form_from_label ); ?></label>
+				<input class="text" type="text" name="email" id="cw_email-<?php echo $cw_uniqid; ?>" value="">
 				<br/>
 				<?php do_action( 'contact_form-after_email', $cw_uniqid ); ?>
 
-				<label for="cw_message-<?php echo $cw_uniqid; ?>"><?php echo wp_kses_post( $contact_form_message_label ); ?>
-					<textarea name="message" id="cw_message-<?php echo $cw_uniqid; ?>" rows="5" cols="25"></textarea>
-				</label><br/>
+				<!-- Message -->
+				<label for="cw_message-<?php echo $cw_uniqid; ?>"><?php echo wp_kses_post( $contact_form_message_label ); ?></label>
+				<textarea name="message" id="cw_message-<?php echo $cw_uniqid; ?>" rows="<?php echo $rows; ?>" cols="<?php echo $cols; ?>"></textarea>
+				<br/>
 				<?php do_action( 'contact_form-after_message', $cw_uniqid ); ?>
 
 				<?php
@@ -379,40 +395,40 @@ class Contact_form extends WP_Widget {
 					if ( ! function_exists( '_recaptcha_qsencode' ) ) {
 						require_once( $plugin_dir . 'scripts/recaptchalib.php' );
 					}
-					$publickey = $contact_form_public_key;
+					//Use old recaptcha
 					define( 'CW_RECAPTCHA_DONE', true );
-					?><?php
-				//Use old recaptcha
-				if ($contact_form_recaptcha_version == 'old') { ?>
-					<!--					Old Recaptcha-->
-					<script type="text/javascript">
-						var RecaptchaOptions = {
-							theme: 'custom',
-							lang: 'en',
-							custom_theme_widget: 'cw-recaptcha_widget'
-						};
-					</script>
-					<div id="cw-recaptcha_widget" style="display: none;">
-						<div id="recaptcha_image"></div>
-						<div id="cw_refresh">
-							<a href="javascript:Recaptcha.reload()"><span><?php echo wp_kses_post( $contact_form_refresh_link ); ?></span></a>
-						</div>
-						<br/>
+					if ( $contact_form_recaptcha_version == 'old' ) { ?>
+						<!--Old Recaptcha-->
+						<script type="text/javascript">
+							var RecaptchaOptions = {
+								theme: 'custom',
+								lang: 'en',
+								custom_theme_widget: 'cw-recaptcha_widget'
+							};
+						</script>
+						<div id="cw-recaptcha_widget" style="display: none;">
+							<div id="recaptcha_image"></div>
+							<div id="cw_refresh">
+								<a href="javascript:Recaptcha.reload()"><span><?php echo wp_kses_post( $contact_form_refresh_link ); ?></span></a>
+							</div>
+							<br/>
 
-						<div class="recaptcha_only_if_incorrect_sol" style="color: red;"><?php _e( 'Incorrect please try again', 'contact_widget' ); ?></div>
-						<label><?php echo $contact_form_response_field; ?>
+							<!--Incorrect message-->
+							<div class="recaptcha_only_if_incorrect_sol" style="color: red;"><?php _e( 'Incorrect please try again', 'contact_widget' ); ?></div>
+
+							<!-- Captcha Input field-->
+							<label><?php echo $contact_form_response_field; ?></label>
 							<br/>
 							<input id="recaptcha_response_field" name="recaptcha_response_field" type="text">
-						</label>
-						<script type="text/javascript" src="http://api.recaptcha.net/challenge?k=<?php echo $publickey; ?>&lang=en"></script>
-					</div>
-				<br/><?php
-				}else{ ?>
-					<br />
-					<div id="html_element"></div>
-				<br/>
-					<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script><?php
-				} ?>
+							<script type="text/javascript" src="http://api.recaptcha.net/challenge?k=<?php echo $publickey; ?>&lang=en"></script>
+						</div>
+					<br/><?php
+					}else{ ?>
+					<br/>
+						<div id="wpmu_grecaptcha"></div>
+					<br/>
+						<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script><?php
+					} ?>
 				<?php } ?>
 				<input class="button" type="button" name="submit" value="<?php echo wp_kses_post( $contact_form_submit_label ); ?>">
 			</form>

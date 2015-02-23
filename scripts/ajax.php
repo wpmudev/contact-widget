@@ -89,7 +89,7 @@ function cw_validate_subject( $subject ) {
 }
 
 if ( $_data['contact_form_captcha'] == 'on' ) {
-	if ( ! $resp->is_valid ) {
+	if ( empty( $resp->is_valid ) || ! $resp->is_valid ) {
 		$error .= '<p>' . __( 'Please enter a valid captcha.', 'contact_widget' ) . '</p>';
 	}
 }

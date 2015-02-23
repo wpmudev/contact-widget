@@ -133,9 +133,12 @@ class ReCaptcha {
 			$recaptchaResponse->success = true;
 		} else {
 			$recaptchaResponse->success    = false;
-			$recaptchaResponse->errorCodes = $answers [ error - codes ];
+			$recaptchaResponse->errorCodes = !empty( $answers ['error-codes'] ) ? $answers ['error-codes'] : '';
 		}
 
+		echo "<pre>";
+		print_r( $recaptchaResponse );
+		echo "</pre>";
 		return $recaptchaResponse;
 	}
 

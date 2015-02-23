@@ -318,18 +318,6 @@ class Contact_form extends WP_Widget {
 			$rows = 2;
 			$cols = 20;
 		}
-		if ( $contact_form_recaptcha_version == 'new' ) { ?>
-
-			<script type="text/javascript">
-				var onloadCallback = function () {
-					grecaptcha.render('wpmu_grecaptcha', {
-						"sitekey": "<?php echo $contact_form_public_key; ?>",
-						"theme": "<?php echo $contact_form_recaptcha_theme; ?>",
-						"type": "<?php echo $contact_form_recaptcha_type; ?>"
-					});
-				}
-			</script><?php
-		}
 
 		$plugin_dir = rtrim( dirname( __FILE__ ), '/' ) . '/';
 		echo $args['before_widget'];
@@ -414,12 +402,12 @@ class Contact_form extends WP_Widget {
 							<input id="recaptcha_response_field" name="recaptcha_response_field" type="text">
 							<script type="text/javascript" src="http://api.recaptcha.net/challenge?k=<?php echo $publickey; ?>&lang=en"></script>
 						</div>
-					<br/><?php
-					}else{ ?>
-					<br/>
-						<div id="wpmu_grecaptcha"></div>
-					<br/>
-						<script src="http://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script><?php
+						<br/><?php
+					} else { ?>
+						<br/>
+						<div class="g-recaptcha" id="wpmu_grecaptcha" data-sitekey="<?php echo $contact_form_public_key; ?>" data-type="<?php echo $contact_form_recaptcha_type; ?>" data-theme="<?php echo $contact_form_recaptcha_theme; ?>"></div>
+						<script src="https://www.google.com/recaptcha/api.js"></script>
+						<br/><?php
 					} ?>
 				<?php } ?>
 				<input class="button" type="button" name="submit" value="<?php echo wp_kses_post( $contact_form_submit_label ); ?>">

@@ -325,15 +325,7 @@ class Contact_form extends WP_Widget {
 					grecaptcha.render('wpmu_grecaptcha', {
 						"sitekey": "<?php echo $contact_form_public_key; ?>",
 						"theme": "<?php echo $contact_form_recaptcha_theme; ?>",
-						"type": "<?php echo $contact_form_recaptcha_type; ?>",
-						"callback": function () {
-							var iframe_id = jQuery('#wpmu_grecaptcha iframe').attr('id');
-							var cssLink = document.createElement("link")
-							cssLink.href = "style.css";
-							cssLink.rel = "stylesheet";
-							cssLink.type = "text/css";
-							frames[iframe_id].document.body.appendChild(cssLink);
-						}
+						"type": "<?php echo $contact_form_recaptcha_type; ?>"
 					});
 				}
 			</script><?php
@@ -427,7 +419,7 @@ class Contact_form extends WP_Widget {
 					<br/>
 						<div id="wpmu_grecaptcha"></div>
 					<br/>
-						<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script><?php
+						<script src="http://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script><?php
 					} ?>
 				<?php } ?>
 				<input class="button" type="button" name="submit" value="<?php echo wp_kses_post( $contact_form_submit_label ); ?>">

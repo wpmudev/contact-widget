@@ -107,8 +107,8 @@ if ( $error ) {
 if ( ! $error ) {
 	$custom_email = trim( $_data['contact_form_admin_email'] );
 	$admin_email  = $custom_email ? $custom_email : get_option( 'admin_email' );
-	$headers      = 'MIME-Version: 1.0' . "\r\n";
-	$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+	$headers      = 'MIME-Version: 1.0\r\n';
+	$headers .= 'Content-type: text/html; charset=utf-8\r\n';
 
 	if ( $_data['contact_form_generic_from'] == 'on' ) {
 		$hostname = preg_replace( '/^www\./', '', parse_url( site_url(), PHP_URL_HOST ) );

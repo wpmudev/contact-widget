@@ -136,9 +136,6 @@ class ReCaptcha {
 			$recaptchaResponse->errorCodes = !empty( $answers ['error-codes'] ) ? $answers ['error-codes'] : '';
 		}
 
-		echo "<pre>";
-		print_r( $recaptchaResponse );
-		echo "</pre>";
 		return $recaptchaResponse;
 	}
 

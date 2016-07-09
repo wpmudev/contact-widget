@@ -119,18 +119,18 @@ class Contact_form extends WP_Widget {
 		$contact_form_generic_from_reply_to = ( $contact_form_generic_from_reply_to == 'on' ) ? 'checked="checked"' : '';
 		$contact_form_generic_from_body     = ( $contact_form_generic_from_body == 'on' ) ? 'checked="checked"' : '';
 		?>
-		<p>
+		<p><label>
 			<b><?php _e( 'Widget title:', 'contact_widget' ); ?></b><br/>
 			<input class="widefat" type="text" name="<?php echo $this->get_field_name( 'contact_form_widget_title' ); ?>" value="<?php echo esc_attr( $contact_form_widget_title ); ?>"/>
-		</p>
-		<p>
+		</label></p>
+		<p><label>
 			<b><?php _e( 'Subject label:', 'contact_widget' ); ?></b><br/>
 			<input class="widefat" type="text" name="<?php echo $this->get_field_name( 'contact_form_subject_label' ); ?>" value="<?php echo esc_attr( $contact_form_subject_label ); ?>"/>
-		</p>
-		<p>
+		</label></p>
+		<p><label>
 			<b><?php _e( 'From label:', 'contact_widget' ); ?></b><br/>
 			<input class="widefat" type="text" name="<?php echo $this->get_field_name( 'contact_form_from_label' ); ?>" value="<?php echo esc_attr( $contact_form_from_label ); ?>"/>
-		</p>
+		</label></p>
 		<p class="cw_generic_from_container">
 			<b><?php _e( 'Use generic &quot;from&quot; address:', 'contact_widget' ); ?></b><br/>
 			<input type="hidden" name="<?php echo $this->get_field_name( 'contact_form_generic_from' ); ?>" value="0"/>
@@ -150,30 +150,30 @@ class Contact_form extends WP_Widget {
 						<label><?php _e( 'Add senders email to message body?', 'contact_widget' ); ?></label>
 				</span>
 		</p>
-		<p>
+		<p><label>
 			<b><?php _e( 'Message label:', 'contact_widget' ); ?></b><br/>
 			<input class="widefat" type="text" name="<?php echo $this->get_field_name( 'contact_form_message_label' ); ?>" value="<?php echo esc_attr( $contact_form_message_label ); ?>"/>
-		</p>
-		<p>
+		</label></p>
+		<p><label>
 			<b><?php _e( 'Send Message button text:', 'contact_widget' ); ?></b><br/>
 			<input class="widefat" type="text" name="<?php echo $this->get_field_name( 'contact_form_submit_label' ); ?>" value="<?php echo esc_attr( $contact_form_submit_label ); ?>"/>
-		</p>
-		<p>
+		</label></p>
+		<p><label>
 			<b><?php _e( 'Admin email (optional):', 'contact_widget' ); ?></b><br/>
 			<input class="widefat" type="text" name="<?php echo $this->get_field_name( 'contact_form_admin_email' ); ?>" value="<?php echo esc_attr( $contact_form_admin_email ); ?>"/>
-		</p>
-		<p>
+		</label></p>
+		<p><label>
 			<b><?php _e( 'Success message:', 'contact_widget' ); ?></b><br/>
 			<input class="widefat" type="text" name="<?php echo $this->get_field_name( 'contact_form_success_message' ); ?>" value="<?php echo esc_attr( $contact_form_success_message ); ?>"/>
-		</p>
-		<p>
+		</label></p>
+		<p><label>
 			<b><?php _e( 'Text after the form:', 'contact_widget' ); ?></b><br/>
 			<textarea rows="10" cols="20" class="widefat" name="<?php echo $this->get_field_name( 'contact_form_text_after' ); ?>" tabindex="0"><?php echo $contact_form_text_after; ?></textarea>
-		</p>
-		<p>
+		</label></p>
+		<p><label>
 			<b><?php _e( 'Custom CSS:', 'contact_widget' ); ?></b><br/>
 			<textarea rows="10" cols="20" class="widefat" name="<?php echo $this->get_field_name( 'contact_form_custom_css' ); ?>" tabindex="0"><?php echo $contact_form_custom_css; ?></textarea>
-		</p>
+		</label></p>
 		<p class="cw_captcha">
 			<b><?php _e( 'Enable CAPTCHA:', 'contact_widget' ); ?></b>
 			<br/>
@@ -215,21 +215,21 @@ class Contact_form extends WP_Widget {
 			</p>
 		</div>
 		<div class="old-recaptcha-settings<?php echo $contact_form_recaptcha_version != 'old' ? ' hidden' : ''; ?>">
-			<p>
+			<p><label>
 				<b><?php _e( 'Refresh CAPTCHA link:', 'contact_widget' ); ?></b>
 				<input type="text" class="widefat" name="<?php echo $this->get_field_name( 'contact_form_refresh_link' ); ?>" value="<?php echo esc_attr( $contact_form_refresh_link ); ?>"/>
-			</p>
+			</label></p>
 
-			<p>
+			<p><label>
 				<b><?php _e( 'Refresh CAPTCHA message:', 'contact_widget' ); ?></b>
 				<input type="text" class="widefat" name="<?php echo $this->get_field_name( 'contact_form_refresh_message' ); ?>" value="<?php echo esc_attr( $contact_form_refresh_message ); ?>"/>
 				<br/>
 				<small><?php _e( 'This is the message that will appear when user rolls over CAPTCHA image', 'contact_widget' ); ?></small>
-			</p>
-			<p>
+			</label></p>
+			<p><label>
 				<b><?php _e( 'Captcha input label:', 'contact_widget' ); ?></b>
 				<input type="text" class="widefat" name="<?php echo $this->get_field_name( 'contact_form_response_field' ); ?>" value="<?php echo esc_attr( $contact_form_response_field ); ?>"/>
-			</p>
+			</label></p>
 		</div>
 		<div class="new-recaptcha-settings<?php echo $contact_form_recaptcha_version != 'new' ? ' hidden' : ''; ?>">
 			<p>
@@ -260,12 +260,12 @@ class Contact_form extends WP_Widget {
 				</label>
 			</p>
 		</div>
-		<p>
+		<p><label>
 			<b><?php _e( 'Compact mode:', 'contact_widget' ); ?></b>
 			<br/>
 			<input type="hidden" name="<?php echo $this->get_field_name( 'contact_form_compact' ); ?>" value="0"/>
 			<input type="checkbox" name="<?php echo $this->get_field_name( 'contact_form_compact' ); ?>" <?php echo $compact_mode; ?> /> <?php _e( 'Enable', 'contact_widget' ); ?>
-		</p>
+		</label></p>
 	<?php
 	}
 

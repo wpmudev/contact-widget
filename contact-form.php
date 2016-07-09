@@ -321,8 +321,8 @@ class Contact_form extends WP_Widget {
 		$contact_form_recaptcha_theme   = ! empty( $contact_form_recaptcha_theme ) ? $contact_form_recaptcha_theme : 'light';
 		$contact_form_recaptcha_type    = ! empty( $contact_form_recaptcha_type ) ? $contact_form_recaptcha_type : 'image';
 
-		$contact_form_compact = ( 'on' == $contact_form_compact ) ? 1 : 0;
-		$contact_form_captcha = ( 'on' == $contact_form_captcha ) ? 1 : 0;
+		$contact_form_compact = !empty( $contact_form_compact ) ? 1 : 0;
+		$contact_form_captcha = !empty( $contact_form_captcha ) ? 1 : 0;
 		$publickey            = $contact_form_public_key;
 		//Reduce number of rows for textare in 2013
 		$theme = wp_get_theme();

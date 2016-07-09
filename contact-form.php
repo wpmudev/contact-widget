@@ -132,22 +132,30 @@ class Contact_form extends WP_Widget {
 			<input class="widefat" type="text" name="<?php echo $this->get_field_name( 'contact_form_from_label' ); ?>" value="<?php echo esc_attr( $contact_form_from_label ); ?>"/>
 		</label></p>
 		<p class="cw_generic_from_container">
-			<b><?php _e( 'Use generic &quot;from&quot; address:', 'contact_widget' ); ?></b><br/>
-			<input type="hidden" name="<?php echo $this->get_field_name( 'contact_form_generic_from' ); ?>" value="0"/>
-			<input type="checkbox" class="cw-contact_form_generic_from" name="<?php echo $this->get_field_name( 'contact_form_generic_from' ); ?>" <?php echo $contact_form_generic_from; ?> />
-			<label><b><?php _e( 'Enable', 'contact_widget' ); ?></b></label>
+			<label>
+				<b><?php _e( 'Use generic &quot;from&quot; address:', 'contact_widget' ); ?></b><br/>
+				<input type="hidden" name="<?php echo $this->get_field_name( 'contact_form_generic_from' ); ?>" value="0"/>
+				<input type="checkbox" class="cw-contact_form_generic_from" name="<?php echo $this->get_field_name( 'contact_form_generic_from' ); ?>" <?php echo $contact_form_generic_from; ?> />
+				<b><?php _e( 'Enable', 'contact_widget' ); ?></b>
+			</label>
 			<br/>
 				<span class="cw_generic_from_options" style="display:none">
-					<input type="text" name="<?php echo $this->get_field_name( 'contact_form_generic_from_user' ); ?>" size="7" value="<?php echo esc_attr( $contact_form_generic_from_user ); ?>"/>
-					@<?php echo $hostname; ?>
+					<label>
+						<input type="text" name="<?php echo $this->get_field_name( 'contact_form_generic_from_user' ); ?>" size="7" value="<?php echo esc_attr( $contact_form_generic_from_user ); ?>"/>
+						@<?php echo $hostname; ?>
+					</label>
 					<br/>
-					<input type="hidden" name="<?php echo $this->get_field_name( 'contact_form_generic_from_reply_to' ); ?>" value="0"/>
-					<input type="checkbox" name="<?php echo $this->get_field_name( 'contact_form_generic_from_reply_to' ); ?>" <?php echo $contact_form_generic_from_reply_to; ?> />
-						<label><?php _e( 'Use senders email as Reply-To address?', 'contact_widget' ); ?></label>
+					<label>
+						<input type="hidden" name="<?php echo $this->get_field_name( 'contact_form_generic_from_reply_to' ); ?>" value="0"/>
+						<input type="checkbox" name="<?php echo $this->get_field_name( 'contact_form_generic_from_reply_to' ); ?>" <?php echo $contact_form_generic_from_reply_to; ?> />
+						<?php _e( 'Use senders email as Reply-To address?', 'contact_widget' ); ?>
+					</label>
 					<br/>
-					<input type="hidden" name="<?php echo $this->get_field_name( 'contact_form_generic_from_body' ); ?>" value="0"/>
-					<input type="checkbox" name="<?php echo $this->get_field_name( 'contact_form_generic_from_body' ); ?>" <?php echo $contact_form_generic_from_body; ?> />
-						<label><?php _e( 'Add senders email to message body?', 'contact_widget' ); ?></label>
+					<label>
+						<input type="hidden" name="<?php echo $this->get_field_name( 'contact_form_generic_from_body' ); ?>" value="0"/>
+						<input type="checkbox" name="<?php echo $this->get_field_name( 'contact_form_generic_from_body' ); ?>" <?php echo $contact_form_generic_from_body; ?> />
+						<?php _e( 'Add senders email to message body?', 'contact_widget' ); ?>
+					</label>
 				</span>
 		</p>
 		<p><label>

@@ -183,10 +183,12 @@ class Contact_form extends WP_Widget {
 			<textarea rows="10" cols="20" class="widefat" name="<?php echo $this->get_field_name( 'contact_form_custom_css' ); ?>" tabindex="0"><?php echo $contact_form_custom_css; ?></textarea>
 		</label></p>
 		<p class="cw_captcha">
-			<b><?php _e( 'Enable CAPTCHA:', 'contact_widget' ); ?></b>
-			<br/>
-			<input type="hidden" name="<?php echo $this->get_field_name( 'contact_form_captcha' ); ?>" value="0"/>
-			<input type="checkbox" name="<?php echo $this->get_field_name( 'contact_form_captcha' ); ?>" <?php echo $captcha; ?> /> <?php _e( 'Enable', 'contact_widget' ); ?>
+			<label>
+				<b><?php _e( 'Enable CAPTCHA:', 'contact_widget' ); ?></b>
+				<br/>
+				<input type="hidden" name="<?php echo $this->get_field_name( 'contact_form_captcha' ); ?>" value="0"/>
+				<input type="checkbox" name="<?php echo $this->get_field_name( 'contact_form_captcha' ); ?>" <?php echo $captcha; ?> /> <?php _e( 'Enable', 'contact_widget' ); ?>
+			</label>
 			<br/>
 			<span class="cw_captcha_keys" style="display:none">
 				<br/>
@@ -199,11 +201,15 @@ class Contact_form extends WP_Widget {
 					<div class="error below-h2"><?php _e( 'Please, remember that your submissions will <b>not</b> be protected until you set up the API keys.', 'contact_widget' ); ?></div>
 				<?php } ?>
 				<br/>
-				<b><?php _e( 'Site Key', 'contact_widget' ); ?></b>
-				<input class="widefat" type="text" name="<?php echo $this->get_field_name( 'contact_form_public_key' ); ?>" value="<?php echo esc_attr( $contact_form_public_key ); ?>"/>
+				<label>
+					<b><?php _e( 'Site Key', 'contact_widget' ); ?></b>
+					<input class="widefat" type="text" name="<?php echo $this->get_field_name( 'contact_form_public_key' ); ?>" value="<?php echo esc_attr( $contact_form_public_key ); ?>"/>
+				</label>
 				<br/>
-				<b><?php _e( 'Secret Key', 'contact_widget' ); ?></b>
-				<input class="widefat" type="text" name="<?php echo $this->get_field_name( 'contact_form_private_key' ); ?>" value="<?php echo esc_attr( $contact_form_private_key ); ?>"/>
+				<label>
+					<b><?php _e( 'Secret Key', 'contact_widget' ); ?></b>
+					<input class="widefat" type="text" name="<?php echo $this->get_field_name( 'contact_form_private_key' ); ?>" value="<?php echo esc_attr( $contact_form_private_key ); ?>"/>
+				</label>
 				<br/>
 			</span>
 		</p>

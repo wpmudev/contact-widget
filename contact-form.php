@@ -66,7 +66,7 @@ class Contact_form extends WP_Widget {
 
 	public function __construct() {
 		$widget_ops = array( 'classname' => __CLASS__, 'description' => __( 'Contact Form', 'contact_widget' ) );
-		parent::WP_Widget( __CLASS__, __( 'Contact Form', 'contact_widget' ), $widget_ops );
+		parent::__construct( __CLASS__, __( 'Contact Form', 'contact_widget' ), $widget_ops );
 
 		add_action( 'admin_print_scripts-widgets.php', array( $this, 'js_load_scripts' ) );
 		if ( ! is_admin() ) {

@@ -400,7 +400,7 @@ class Contact_form extends WP_Widget {
 							<label><?php echo $contact_form_response_field; ?></label>
 							<br/>
 							<input id="recaptcha_response_field" name="recaptcha_response_field" type="text">
-							<script type="text/javascript" src="http://api.recaptcha.net/challenge?k=<?php echo $publickey; ?>&lang=en"></script>
+							<script type="text/javascript" src="//api.recaptcha.net/challenge?k=<?php echo $publickey; ?>&lang=en"></script>
 						</div>
 						<br/><?php
 					} else { ?>

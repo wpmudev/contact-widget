@@ -6,7 +6,7 @@ Description: Adds a contact form widget to your blog.
 Text Domain: contact_widget
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org/
-Version: 2.2.1-BETA-1
+Version: 2.2.1
 WDP ID: 151
 
 Copyright 2009-2011 Incsub (http://incsub.com)

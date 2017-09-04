@@ -2,6 +2,12 @@ Plugin Name: Contact Widget
 
 Change Log:
 ----------------------------------------------------------------------
+
+2.2.1 - 2017-09-04
+--------
+- Fix: deprecated constructor notice
+
+
 2.2 - 2015-02-20 - Umesh Kumar
 --------
 
